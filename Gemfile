@@ -1,6 +1,7 @@
 source :rubygems
 
 gem 'carrierwave'
+gem 'fog'
 gem 'pg', :group => :production
 gem 'rack'
 gem 'sinatra'

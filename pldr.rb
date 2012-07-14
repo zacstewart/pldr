@@ -5,8 +5,18 @@ require 'carrierwave/orm/activerecord'
 set :database, ENV['DATABASE_URL']
 set :logging, :true
 
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    provider:               'AWS',
+    aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],
+    aws_secret_access_key:  ENV['AWS_SECRET_ACCESS_KEY']
+  }
+  config.fog_directory = 'pldr'
+  config.fog_attributes = {'Cache-Control'=>'max-age=315576000'}
+end
+
 class PhotoUploader < CarrierWave::Uploader::Base
-  storage :file
+  storage :fog
   def root; 'public'; end
   def filename; model.tiny + original_filename; end
 end
