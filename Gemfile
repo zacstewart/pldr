@@ -7,4 +7,4 @@ gem 'rack'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'slim'
-gem 'sqlite3'
+gem 'sqlite3', :group => :development
