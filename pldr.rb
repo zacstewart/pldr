@@ -36,7 +36,7 @@ class Pldr < Sinatra::Base
   post '/' do
     photo = Photo.new params[:photo]
     while photo.tiny.blank? || Photo.find_by_tiny(photo.tiny) 
-      photo.tiny = rand(36**8).to_s(36)
+      photo.tiny = rand(36**3).to_s(36)
     end
 
     if photo.save
