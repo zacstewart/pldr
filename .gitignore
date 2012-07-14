@@ -1,11 +1,13 @@
+*.db
 *.gem
 *.rbc
 .bundle
 .config
-coverage
 InstalledFiles
+coverage
 lib/bundler/man
 pkg
+public
 rdoc
 spec/reports
 test/tmp

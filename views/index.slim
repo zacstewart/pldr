@@ -1,0 +1,9 @@
+form method="post" enctype="multipart/form-data"
+  - if photo.errors.any?
+    ul.errors
+      - photo.errors.full_messages.each do |msg|
+        li= msg
+  p
+    input type="file" name="photo[file]"
+  p
+    input type="submit" value="Upload"
