@@ -23,7 +23,7 @@ class PhotoUploader < CarrierWave::Uploader::Base
 end
 
 class Photo < ActiveRecord::Base
-  validate :tiny, presence: true
+  validate :tiny, :file, presence: true
   attr_accessible :tiny, :file
   mount_uploader :file, PhotoUploader
 end
