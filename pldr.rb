@@ -1,4 +1,5 @@
 require 'bundler'
+require 'sprockets'
 Bundler.require
 require 'carrierwave/orm/activerecord'
 
@@ -27,12 +28,32 @@ class Photo < ActiveRecord::Base
   mount_uploader :file, PhotoUploader
 end
 
+module AssetHelpers
+  def asset_path(source)
+    '/assets/' << settings.sprockets.find_asset(source).digest_path
+  end
+end
+
 class Pldr < Sinatra::Base
+  configure do
+    set :root, File.dirname(__FILE__)
+    set :sprockets, Sprockets::Environment.new(root)
+    set :precompile, [ /\w+\.(?!js|css).+/, /application.(css|js)$/ ]
+    set :assets_prefix, 'assets'
+    set :assets_path, File.join(root, assets_prefix)
+    sprockets.append_path(File.join(root, 'assets', 'stylesheets'))
+    sprockets.context_class.instance_eval { include AssetHelpers }
+  end
+  
+  helpers do
+    include AssetHelpers
+  end
+  
   get '/' do
     photo = Photo.new
     slim :index, locals: {photo: photo}
   end
-
+  
   post '/' do
     photo = Photo.new params[:photo]
     while photo.tiny.blank? || Photo.find_by_tiny(photo.tiny) 

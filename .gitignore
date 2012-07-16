@@ -7,7 +7,7 @@ InstalledFiles
 coverage
 lib/bundler/man
 pkg
-public
+public/tmp
 rdoc
 spec/reports
 test/tmp

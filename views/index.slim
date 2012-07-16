@@ -1,9 +1,11 @@
-form method="post" enctype="multipart/form-data"
-  - if photo.errors.any?
-    ul.errors
-      - photo.errors.full_messages.each do |msg|
-        li= msg
-  p
-    input type="file" name="photo[file]"
-  p
-    input type="submit" value="Upload"
+.container
+  p.intro pldr is the easiest way to share photos from iOS 6+. Save this page to your homescreen to enjoy the best experience possible. Select or take a photo and share the short URL.
+.container
+  form.upload method="post" enctype="multipart/form-data"
+    - if photo.errors.any?
+      ul.errors
+        - photo.errors.full_messages.each do |msg|
+          li= msg
+    input.upload type="file" name="photo[file]"
+    button.upload type="submit"
+      | upload
